@@ -168,7 +168,16 @@ because it is not primarily metabolized by CYP2D6, bypassing the bottleneck. (Dr
 
     risk_flags = "\n".join(f"  ! {f}" for f in result.patient_risk_factors) or "  None identified."
 
-    return f"""You are CascadeRx, a specialized clinical pharmacology AI.
+    return f"""LANGUAGE INSTRUCTION — READ THIS FIRST BEFORE WRITING ANYTHING:
+- Language code: {patient.language or "en"}
+- If language code is "hi": You MUST write the ENTIRE report in Hindi using Devanagari script. This is mandatory.
+- If language code is "mr": You MUST write the ENTIRE report in Marathi using Devanagari script. This is mandatory.
+- If language code is "en": Write entirely in English.
+- Keep ALL of the following in English regardless of language: drug names, enzyme names (CYP2D6, CYP3A4 etc), severity labels (CRITICAL/HIGH/MODERATE/LOW), DrugBank IDs, PubMed PMIDs, brand names.
+- Translate ALL section headings, explanatory prose, recommendations, and narrative text.
+- Do NOT produce English output if the language code is hi or mr. This is a hard requirement.
+
+You are CascadeRx, a specialized clinical pharmacology AI.
 Your expertise is identifying multi-drug Cascade interactions via CYP450 enzymes
 that traditional pairwise checkers miss.
 
@@ -225,12 +234,7 @@ Write EXACTLY these sections:
 ## Sources
 ## Disclaimer
 
-LANGUAGE INSTRUCTION:
-- If language is "hi": Write the ENTIRE report in Hindi (Devanagari script). Keep drug names, enzyme names (CYP2D6 etc), severity labels (CRITICAL/HIGH/MODERATE/LOW), DrugBank IDs, and PubMed PMIDs in English. Translate all prose and headings into Hindi.
-- If language is "mr": Write the ENTIRE report in Marathi (Devanagari script). Same rules — keep technical terms in English, translate all prose and headings into Marathi.
-- If language is "en": Write entirely in English.
-Current language: {patient.language or 'en'}
-Do NOT write in English if language is hi or mr."""
+"""
 
 # ─────────────────────────────────────────────────────────────────
 # MOCK LLM  — deterministic, always passes eval keyword checks
