@@ -336,7 +336,8 @@ def stream_llm(prompt, result, patient, resolved_list=None):
         return
     try:
         from openai import OpenAI
-        client = OpenAI(base_url="https://api.featherless.ai/v1", api_key=FEATHERLESS_KEY, http_client=None)
+        import httpx
+        client = OpenAI(base_url="https://api.featherless.ai/v1", api_key=FEATHERLESS_KEY, http_client=httpx.Client())
         resp   = client.chat.completions.create(
             model=MODEL_ID,
             messages=[{"role": "user", "content": prompt}],
