@@ -516,6 +516,7 @@ def analyze_stream():
     patient = parse_patient(data, override_drug_names=ingredients)
     result  = analyze(patient)
     prompt  = build_agent_prompt(patient, result, resolved)
+    print(f"[DEBUG] Language received: {patient.language}")
     combos  = [r.brand for r in resolved if r.note and "combination" in r.note]
 
     def generate():
