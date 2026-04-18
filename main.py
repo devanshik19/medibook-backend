@@ -225,7 +225,12 @@ Write EXACTLY these sections:
 ## Sources
 ## Disclaimer
 
-RESPONSE LANGUAGE: {patient.language or 'en'}"""
+LANGUAGE INSTRUCTION:
+- If language is "hi": Write the ENTIRE report in Hindi (Devanagari script). Keep drug names, enzyme names (CYP2D6 etc), severity labels (CRITICAL/HIGH/MODERATE/LOW), DrugBank IDs, and PubMed PMIDs in English. Translate all prose and headings into Hindi.
+- If language is "mr": Write the ENTIRE report in Marathi (Devanagari script). Same rules — keep technical terms in English, translate all prose and headings into Marathi.
+- If language is "en": Write entirely in English.
+Current language: {patient.language or 'en'}
+Do NOT write in English if language is hi or mr."""
 
 # ─────────────────────────────────────────────────────────────────
 # MOCK LLM  — deterministic, always passes eval keyword checks
